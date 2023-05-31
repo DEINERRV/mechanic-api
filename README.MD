@@ -1,7 +1,7 @@
-# Personal Job Application Backend
+# Mechanic Application Backend
 
 
-This repository contains the backend code for a job application system. The backend is responsible for handling the server-side operations and functionality related to registering and managing personal job applications. It provides essential functionalities such as user authentication, registering new job applications, and modifying the application's name or status.
+This repository contains the backend code for a mechanic's application system. The backend is responsible for handling the server-side operations and functionality related to registering and managing vehicles repairs. It provides essential functionalities such as user authentication, registering new client, cehicle and starta a repair.
 
 
 ## Technologies Used
