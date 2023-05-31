@@ -3,7 +3,7 @@ const {StatusCodes} = require("http-status-codes");
 const {BadRequestError, NotFoundError} = require("../errors");
 
 const getAllServices = async (req,res)=>{
-    const services = await Service.findAll()
+    const services = await Service.find()
     res.status(StatusCodes.OK).json({services, count: services.length});
 }
 
@@ -46,6 +46,7 @@ const deleteService = async (req,res)=>{
 }
 
 module.exports = {
+    getAllServices,
     getService,
     createService,
     updateService,
