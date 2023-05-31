@@ -27,9 +27,9 @@ const servicesRouter = require("./routes/services");
 const repairsRouter = require("./routes/repairs")
 
 // swagger
-const swaggerUI = require("swagger-ui-express");
-const yaml = require("yamljs");
-const swaggerDocument = yaml.load("./swagger.yaml");
+//const swaggerUI = require("swagger-ui-express");
+//const yaml = require("yamljs");
+//const swaggerDocument = yaml.load("./swagger.yaml");
 
 // settings
 app.set("port",process.env.PORT || 3000);
@@ -48,8 +48,8 @@ app.use(cors());
 app.use(xss());
 
 // routes
-app.get("/", (req,res)=>res.send("<h1>JOBS API<h1><a href='/api/docs'>Documentation<a>"));
-app.use("/api/docs",swaggerUI.serve,swaggerUI.setup(swaggerDocument));
+app.get("/", (req,res)=>res.send("<h1>MECHANIC API<h1><a href='/api/docs'>Documentation<a>"));
+//app.use("/api/docs",swaggerUI.serve,swaggerUI.setup(swaggerDocument));
 app.use("/api/v1/auth",authRouter);
 app.use("/api/v1/vehicles", authenticateUser, vehiclesRouter);
 app.use("/api/v1/services", authenticateUser, servicesRouter);
