@@ -16,10 +16,10 @@ const getAllUsers = async(req,res)=>{
         queryObject.number = {"$eq":number}
         //When number lenth less than 8
         if(number.toString().length < 8){
-            const zeroToAdd = 8 - number.toString().length 
+            const zeroToAdd = 8 - number.length 
             const lowerLimit = number * 10 ** zeroToAdd
-            const upperLimit = (number + 1) * 10 ** zeroToAdd
-            console.log(zeroToAdd)
+            const upperLimit = (Number(number) + 1) * 10 ** zeroToAdd
+            console.log(lowerLimit+"="+upperLimit)
             queryObject.number = {"$gte":lowerLimit, "$lt":upperLimit}
         }
         
