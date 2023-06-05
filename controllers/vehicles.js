@@ -25,7 +25,7 @@ const getAllVehicle = async(req,res)=>{
         
     }
         
-    let result = Vehicle.find(queryObject)
+    let result = Vehicle.find(queryObject).populate({path:"owner",select:"name"})
     
     //sort
     result = result.sort("createAt")
