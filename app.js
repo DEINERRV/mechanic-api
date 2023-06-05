@@ -24,7 +24,8 @@ const authenticateUser = require("./middleware/authentication");
 const authRouter = require("./routes/auth");
 const vehiclesRouter = require("./routes/vehicles");
 const servicesRouter = require("./routes/services");
-const repairsRouter = require("./routes/repairs")
+const repairsRouter = require("./routes/repairs");
+const usersRouter = require("./routes/users");
 
 // swagger
 //const swaggerUI = require("swagger-ui-express");
@@ -54,6 +55,7 @@ app.use("/api/v1/auth",authRouter);
 app.use("/api/v1/vehicles", authenticateUser, vehiclesRouter);
 app.use("/api/v1/services", authenticateUser, servicesRouter);
 app.use("/api/v1/repairs", authenticateUser, repairsRouter);
+app.use("/api/v1/users", authenticateUser, usersRouter);
 
 // more middlewares
 app.use(notFoundMiddleware);
