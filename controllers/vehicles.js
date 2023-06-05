@@ -4,7 +4,7 @@ const {BadRequestError, NotFoundError} = require("../errors");
 
 const getAllVehicle = async(req,res)=>{
     const queryObject = {};
-    const {name,plate} = req.query;
+    const {name,plate,owner} = req.query;
 
     //filters
     if(name)
@@ -22,8 +22,9 @@ const getAllVehicle = async(req,res)=>{
             console.log(lowerLimit+"="+upperLimit)
             queryObject.plate = {"$gte":lowerLimit, "$lt":upperLimit}
         }
-        
     }
+    if(owner)
+        queryObject.owner = {"$eq": owner}
         
     let result = Vehicle.find(queryObject).populate({path:"owner",select:"name"})
     
