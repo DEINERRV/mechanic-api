@@ -36,8 +36,8 @@ const getAllVehicle = async(req,res)=>{
     result = result.limit(limit).skip(limit*(page-1));
 
     //execution 
-    const users = await result;
-    res.status(StatusCodes.OK).json({users,length: users.length});
+    const vehicles = await result;
+    res.status(StatusCodes.OK).json({vehicles,length: vehicles.length});
 }
 
 const getVehicle = async (req,res)=>{
