@@ -24,6 +24,11 @@ const UserSchema = new mongoose.Schema({
         type: Number,
         required: [true,"Must Privied a cellphone"]
     },
+    role: {
+        type: String,
+        enum: ["mechanic","client"],
+        default: 'client',
+    },
     password: {
         type: String,
         required: [true,"Must Provied a Password"],
