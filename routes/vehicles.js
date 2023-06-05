@@ -1,9 +1,10 @@
 const express = require("express");
 const router = express.Router();
 
-const {getVehicle,createVehicle,updateVehicle,deleteVehicle} = require("../controllers/vehicles");
+const {getAllVehicle,getVehicle,createVehicle,updateVehicle,deleteVehicle} = require("../controllers/vehicles");
 
 router.route("/")
+    .get(getAllVehicle)
     .post(createVehicle)
 ;
     

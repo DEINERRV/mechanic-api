@@ -2,6 +2,43 @@ const Vehicle = require("../models/Vehicle");
 const {StatusCodes} = require("http-status-codes");
 const {BadRequestError, NotFoundError} = require("../errors");
 
+const getAllVehicle = async(req,res)=>{
+    const queryObject = {};
+    const {name,plate} = req.query;
+
+    //filters
+    if(name)
+        queryObject.name = {$regex: name, $options: "i"}
+    if(plate){
+        if(plate === 0)
+            throw new BadRequestError("Plate field can not be empty")
+        //Exact plate number lenth equal 6
+        queryObject.plate = {"$eq":plate}
+        //When plate number lenth less than 8
+        if(plate.toString().length < 6){
+            const zeroToAdd = 6 - plate.length 
+            const lowerLimit = plate * 10 ** zeroToAdd
+            const upperLimit = (Number(plate) + 1) * 10 ** zeroToAdd
+            console.log(lowerLimit+"="+upperLimit)
+            queryObject.plate = {"$gte":lowerLimit, "$lt":upperLimit}
+        }
+        
+    }
+        
+    let result = Vehicle.find(queryObject)
+    
+    //sort
+    result = result.sort("createAt")
+
+    //pagination
+    const page = Number(req.query.page) || 1;
+    const limit = Number(req.query.limit) || 10;
+    result = result.limit(limit).skip(limit*(page-1));
+
+    //execution 
+    const users = await result;
+    res.status(StatusCodes.OK).json({users,length: users.length});
+}
 
 const getVehicle = async (req,res)=>{
     const vehicle = await Vehicle.findOne({_id: req.params.id})
@@ -42,6 +79,7 @@ const deleteVehicle = async (req,res)=>{
 }
 
 module.exports = {
+    getAllVehicle,
     getVehicle,
     createVehicle,
     updateVehicle,
