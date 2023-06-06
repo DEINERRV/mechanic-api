@@ -48,7 +48,24 @@ const getUser = async (req,res)=>{
     res.status(StatusCodes.OK).json(user)
 }
 
+const updateUser = async (req,res)=>{
+    const {name,number} = req.body
+    if(!name || !number || name=="" || number=="")
+        throw new BadRequestError("Name and Number fields can not be empty")
+
+    const user = await User.findOneAndUpdate({_id: req.params.id},req.body,{
+        new: true,
+        runValidators: true
+    })
+    
+    if(!user)
+        throw new NotFoundError(`No user with id ${req.params.id}`)
+
+    res.status(StatusCodes.OK).json(user)
+}
+
 module.exports = {
     getAllUsers,
-    getUser
+    getUser,
+    updateUser
 }
