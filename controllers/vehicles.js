@@ -42,7 +42,7 @@ const getAllVehicle = async(req,res)=>{
 }
 
 const getVehicle = async (req,res)=>{
-    const vehicle = await Vehicle.findOne({_id: req.params.id})
+    const vehicle = await Vehicle.findOne({_id: req.params.id}).populate("owner")
     if(!vehicle)
         throw new NotFoundError(`No vehicle with id ${req.params.id}`)
     
