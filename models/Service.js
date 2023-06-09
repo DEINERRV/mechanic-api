@@ -7,6 +7,11 @@ const ServiceSchema = new mongoose.Schema({
         trim: true,
         maxlength: 50
     },
+    description: {
+        type: String,
+        trim: true,
+        maxlength: 200
+    },
     createdBy: {
         type: mongoose.Types.ObjectId,
         ref: "User",
