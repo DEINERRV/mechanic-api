@@ -4,11 +4,13 @@ const {BadRequestError, NotFoundError} = require("../errors");
 
 const getAllUsers = async(req,res)=>{
     const queryObject = {};
-    const {name,number} = req.query;
+    const {name,role,number} = req.query;
 
     //filters
     if(name)
         queryObject.name = {$regex: name, $options: "i"}
+    if(role)
+        queryObject.role = {$regex: role, $options: "i"}
     if(number){
         if(number === 0)
             throw new BadRequestError("Number field can not be empty")
