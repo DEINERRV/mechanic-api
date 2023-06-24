@@ -2,6 +2,28 @@ const Repair = require("../models/Repair");
 const {StatusCodes} = require("http-status-codes");
 const {BadRequestError, NotFoundError} = require("../errors");
 
+const getAllRepair = async(req,res)=>{
+    const queryObject = {};
+    const {vehicle} = req.query;
+
+    //filters
+    if(vehicle)
+        queryObject.vehicle = {"$eq": vehicle}
+        
+    let result = Repair.find(queryObject)
+    
+    //sort
+    result = result.sort("createAt")
+
+    //pagination
+    const page = Number(req.query.page) || 1;
+    const limit = Number(req.query.limit) || 10;
+    result = result.limit(limit).skip(limit*(page-1));
+
+    //execution 
+    const repairs = await result;
+    res.status(StatusCodes.OK).json({repairs,length: repairs.length});
+}
 
 const getRepair = async (req,res)=>{
     const repair = await Repair.findOne({_id: req.params.id})
@@ -46,6 +68,7 @@ const deleteRepair = async (req,res)=>{
 }
 
 module.exports = {
+    getAllRepair,
     getRepair,
     createRepair,
     updateRepair,
