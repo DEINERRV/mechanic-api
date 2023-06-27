@@ -10,7 +10,7 @@ const ServiceSchema = new mongoose.Schema({
     description: {
         type: String,
         trim: true,
-        maxlength: 200
+        maxlength: 300
     },
     createdBy: {
         type: mongoose.Types.ObjectId,
